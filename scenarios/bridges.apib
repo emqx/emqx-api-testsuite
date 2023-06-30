@@ -1,0 +1,95 @@
+GET /bridges
+> Authorization: Bearer {{<token}}
+< 200
+< Content-Type: application/json
+["{{unexpected}}"]
+
+POST /bridges
+> Authorization: Bearer {{<token}}
+> Content-Type: application/json
+{
+  "clean_start": true,
+  "egress": {
+    "local": {
+      "topic": "emqx/#"
+    },
+    "remote": {
+      "payload": "${payload}",
+      "qos": "${qos}",
+      "retain": false,
+      "topic": "from_emqx/${topic}"
+    }
+  },
+  "enable": true,
+  "ingress": {
+    "local": {
+      "payload": "${payload}",
+      "qos": "${qos}",
+      "retain": "${retain}",
+      "topic": "from_aws/${topic}"
+    },
+    "remote": {
+      "qos": 1,
+      "topic": "aws/#"
+    }
+  },
+  "keepalive": "300s",
+  "max_inflight": 100,
+  "name": "mqtt_example",
+  "proto_ver": "v4",
+  "resource_opts": {
+    "health_check_interval": "15s",
+    "max_buffer_bytes": 104857600,
+    "query_mode": "sync"
+  },
+  "retry_interval": "15s",
+  "server": "127.0.0.1:1883",
+  "ssl": {
+    "enable": false
+  },
+  "type": "mqtt",
+  "username": "foo"
+}
+< 201
+< Content-type: application/json
+{
+  "type": "mqtt",
+  "name": "mqtt_example"
+}
+
+GET /bridges
+> Authorization: Bearer {{<token}}
+< 200
+< Content-Type: application/json
+[{
+  "type": "mqtt",
+  "name": "mqtt_example"
+}]
+
+GET /bridges/mqtt:mqtt_example
+> Authorization: Bearer {{<token}}
+< 200
+< Content-Type: application/json
+{
+  "type": "mqtt",
+  "name": "mqtt_example"
+}
+
+DELETE /bridges/mqtt:mqtt_example
+> Authorization: Bearer {{<token}}
+< 204
+
+DELETE /bridges/mqtt:mqtt_example
+> Authorization: Bearer {{<token}}
+< 404
+< Content-Type: application/json
+{
+  "code": "NOT_FOUND",
+  "message": "{{_}}"
+}
+
+GET /bridges
+> Authorization: Bearer {{<token}}
+< 200
+< Content-Type: application/json
+["{{unexpected}}"]

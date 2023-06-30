@@ -1,0 +1,53 @@
+#PARAM username="admin"
+#PARAM password="public"
+
+POST /login
+> Content-type: application/json
+{
+  "username": "{{<username}}",
+  "password": "{{<password}}"
+}
+< 200
+< Content-type: application/json
+{
+  "token": "{{>token}}"
+}
+
+GET /metrics
+< 401
+< Content-type: application/json
+{
+  "code": "AUTHORIZATION_HEADER_ERROR"
+}
+
+GET /metrics
+> Authorization: Bearer {{<token}}
+< 200
+< Content-type: application/json
+[{
+  "node": "{{_}}"
+}]
+
+POST /api_key
+> Authorization: Bearer {{<token}}
+> Content-type: application/json
+{
+  "name": "my_api_key",
+  "desc": "fix me, this is a bug in the schema or code since it's optional in schema but required by code",
+  "enable": true
+}
+< 200
+< Content-type: application/json
+{
+  "name": "my_api_key",
+  "api_key": "{{>api_key}}",
+  "api_secret": "{{>api_secret}}"
+}
+
+# GET /api_key
+# > Authorization: Basic { "{{type}}": "runtime_value", "erlang": "list_to_binary(httpd_util:rfc1123_date(calendar:now_to_datetime(erlang:now())))" }
+# < 200
+
+DELETE /api_key/my_api_key
+> Authorization: Bearer {{<token}}
+< 204
