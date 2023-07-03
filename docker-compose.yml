@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  emqx:
+    container_name: emqx
+    hostname: emqx
+    image: emqx:5.1.0
+    restart: always
+    networks:
+      - emqx_bridge
+    ports:
+      - 18083:18083
+      #- 1883:1883
+
+networks:
+  emqx_bridge:
+    driver: bridge
+    name: emqx_bridge
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.100.239.0/24
+          gateway: 172.100.239.1
+        - subnet: 2001:3200:3200::/64
+          gateway: 2001:3200:3200::1
