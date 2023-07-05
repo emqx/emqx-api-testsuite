@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-There are other ways but this is most convenient if you ask me.
+There are other ways but this is most convenient:
 
 * `docker` to run EMQX and katt
 * `jq` to evaluate results
