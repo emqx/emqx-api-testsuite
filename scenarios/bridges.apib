@@ -1,3 +1,9 @@
+--- Test all resources below /bridges API ---
+
+---
+We test if no bridges defined on startup, then we create a bridge and call all possible operations on that bridge, when finished, we delete that bridge again and check it's gone.
+---
+
 GET /bridges
 > Authorization: Bearer {{<token}}
 < 200

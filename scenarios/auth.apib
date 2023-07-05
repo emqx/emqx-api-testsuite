@@ -1,3 +1,13 @@
+--- Test authorization methods of our API ---
+
+--- Use login resource to retrieve a bearer token, check that calls require
+authorization first, then supply token and check we can access resources now.
+Create API key and secret and check authorization works with those too
+
+[FIXME] Can't create a basic auth token from that pair from within blueprint at this
+point.
+---
+
 POST /login
 > Content-type: application/json
 {
@@ -42,7 +52,7 @@ POST /api_key
 }
 
 # GET /api_key
-# > Authorization: Basic { "{{type}}": "runtime_value", "erlang": "list_to_binary(httpd_util:rfc1123_date(calendar:now_to_datetime(erlang:now())))" }
+# > Authorization: Basic { "{{type}}": "runtime_value", "erlang": "base64(lists:flatten([{{>api_key}}, \":\", {{>api_secret}}]))" }
 # < 200
 
 DELETE /api_key/my_api_key
