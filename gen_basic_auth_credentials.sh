@@ -1,12 +1,12 @@
 #!/bin/bash
 
-echo "Enter your username:"
+echo "Enter dashboard username:"
 read username
 
-echo "Enter your password:"
+echo "Enter dashboard password:"
 read -s password
 
 credentials="${username}:${password}"
 base64_credentials=$(echo -n $credentials | base64)
 
-echo "Generated token: ${base64_credentials}"
+echo "Generated HTTP basic auth token: ${base64_credentials}"
