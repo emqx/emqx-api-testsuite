@@ -40,4 +40,4 @@ Add any other parameter your blueprint file might require (e.g. `token=<my-beare
 
 Test scenarios (see `./scenarios/`) are written in a DSL call [API Blueprint](https://apiblueprint.org) and run against an (Erlang) application called [katt](https://github.com/for-GET/katt). Check its website for [examples](https://github.com/for-GET/katt/blob/master/doc/example-httpbin.apib) and [features](https://github.com/for-GET/katt/blob/master/README.md).
 
-To add your own just put another `.apib` file below the `./scenarios/` subdirectory.
+To add your own just put another `.apib` file below the [`./scenarios/`](./scenarios/) subdirectory.
