@@ -1,4 +1,4 @@
-# emqx_api_testsuite
+# EMQX API Compliance Test Suite
 
 ## Prerequisites
 
