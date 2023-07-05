@@ -4,8 +4,8 @@
 
 There are other ways but this is most convenient if you ask me.
 
-* docker
-* jq
+* `docker` to run EMQX and katt
+* `jq` to evaluate results
 
 ## How to run
 
